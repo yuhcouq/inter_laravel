@@ -43,3 +43,5 @@ Route::get('/home', function () {
 //cooki
 Route::get('cooki/view','MainController@showContactForm');
 Route::post('cooki/post','MainController@insertMessage');
+Route::get("/template",'TemController@templade');
+Route::get("/html",'TemController@html');
