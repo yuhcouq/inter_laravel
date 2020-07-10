@@ -1,3 +1,4 @@
+
 @extends('layouts.layout-menu')
 
 @section('title', 'All Laravel - Liên hệ với chúng tôi')

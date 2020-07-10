@@ -43,5 +43,13 @@ Route::get('/home', function () {
 //cooki
 Route::get('cooki/view','MainController@showContactForm');
 Route::post('cooki/post','MainController@insertMessage');
+//template
 Route::get("/template",'TemController@templade');
+//laravel html
 Route::get("/html",'TemController@html');
+//query
+Route::get("/register",'DbController@registerview');
+Route::post("/registerpost",'DbController@register');
+//query builder
+Route::resource('product', 'ProductController', ['only' => [
+    'index', 'create', 'store', 'edit', 'update']]);
