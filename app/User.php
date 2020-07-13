@@ -15,10 +15,12 @@ class User extends Authenticatable
      *
      * @var array
      */
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
     protected $fillable = [
         'name', 'email', 'password',
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *

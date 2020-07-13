@@ -53,3 +53,10 @@ Route::post("/registerpost",'DbController@register');
 //query builder
 Route::resource('product', 'ProductController', ['only' => [
     'index', 'create', 'store', 'edit', 'update']]);
+//eloquent-collection-migrate
+Route::get("/n-n",'EloquentController@add');
+Route::get("1-n",'EloquentController@add1n');
+Route::get("/dahinh",'EloquentController@addp');
+Route::get("/collection",'EloquentController@collection');
+//phan trang
+Route::get("/phantrang",'PController@phantrang');
