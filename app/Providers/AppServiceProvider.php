@@ -14,6 +14,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->singleton(
+            \App\Repositoriesssss\Post\PostRepositoryInterface::class,
+            \App\Repositoriesssss\Post\PostEloquentRepository::class
+        );
     }
 
     /**

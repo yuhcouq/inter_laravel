@@ -21,6 +21,7 @@ class CreateProductShopsTable extends Migration
 
             $table->integer('shop_id')->unsigned()->index();
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
+
         });
     }
 

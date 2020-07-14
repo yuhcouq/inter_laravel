@@ -8,10 +8,13 @@ class Post extends Model
 {
     //
     protected $fillable = [
-        'content',
+        'content'
     ];
     public function Assesses()
     {
         return $this->morphMany('App\Assess', 'object');
+    }
+    public function users(){
+        return $this->belongsTo('App\User');
     }
 }

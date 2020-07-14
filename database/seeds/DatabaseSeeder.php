@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Comment;
+use App\Post;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -15,5 +16,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         factory(User::class, 100)->create();
         factory(Comment::class, 100)->create();
+        factory(Post::class, 5)->create();
     }
 }

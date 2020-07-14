@@ -4,6 +4,7 @@
 
 use App\User;
 use App\Comment;
+use App\Post;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -28,6 +29,12 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 $factory->define(Comment::class, function (Faker $faker) {
+    return [
+        'user_id' => App\User::all()->random()->id,
+        'content' => $faker->name,
+    ];
+});
+$factory->define(Post::class, function (Faker $faker) {
     return [
         'user_id' => App\User::all()->random()->id,
         'content' => $faker->name,

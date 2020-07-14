@@ -60,3 +60,6 @@ Route::get("/dahinh",'EloquentController@addp');
 Route::get("/collection",'EloquentController@collection');
 //phan trang
 Route::get("/phantrang",'PController@phantrang');
+//repository
+Route::resource('post', 'PostController', ['only' => [
+    'index', 'create', 'store', 'edit', 'update']]);
