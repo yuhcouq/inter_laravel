@@ -63,3 +63,7 @@ Route::get("/phantrang",'PController@phantrang');
 //repository
 Route::resource('post', 'PostController', ['only' => [
     'index', 'create', 'store', 'edit', 'update']]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
