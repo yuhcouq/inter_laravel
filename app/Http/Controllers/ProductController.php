@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+//use http\Client;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
+use \GuzzleHttp\Client;
 class ProductController extends Controller
 {
     /**
@@ -13,7 +15,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->get();
+        $url = 'http://127.0.0.1:8000/api/products';
+
+        $products = file_get_contents($url);
+//        dd($products);
+//        $products = DB::table('products')->get();
+        $products = json_decode($products, true);
         return view('fontend.product.list',compact('products'));
     }
 

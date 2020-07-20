@@ -1,5 +1,6 @@
 <?php
 
+use App\Product;
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Comment;
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
         factory(User::class, 100)->create();
         factory(Comment::class, 100)->create();
         factory(Post::class, 5)->create();
+        factory(Product::class, 5)->create();
     }
 }

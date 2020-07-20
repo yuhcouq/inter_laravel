@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     //
+    protected $fillable = [
+        'name'
+    ];
     public function shops()
     {
         return $this->belongsToMany(Shop::class)->withTimestamps();

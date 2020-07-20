@@ -7,6 +7,7 @@
     @if(isset($message))
         <div class="alert alert-success" role="alert">{{ $message }}</div>
     @endif
+    @dd($products);
     <table class="table table-bordered">
         <tr class="success">
             <th>ID</th>
