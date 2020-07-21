@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 //use http\Client;
+use App\Product;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
@@ -63,6 +64,7 @@ class ProductController extends Controller
                 'image_path' => $request->input('image_path'),
                 'active'     => $active]
                 );
+
             return redirect('product/create')
             ->with('message', 'Sản phẩm được tạo thành công với ID: ' . $product_id);
         }
@@ -77,6 +79,12 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        $url = 'http://127.0.0.1:8000/api/products/'.$id;
+        $products = file_get_contents($url);
+//        dd($products);
+//        $products = DB::table('products')->get();
+        $products = json_decode($products, true);
+        return view('fontend.product.list',compact('products'));
     }
 
     /**
@@ -103,27 +111,40 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'       => 'required|max:255',
-            'price'      => 'required|numeric',
-            'content'    => 'required',
-            'image_path' => 'required'
+//            'price'      => 'required|numeric',
+//            'content'    => 'required',
+//            'image_path' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect('product/create')
                 ->withErrors($validator)
                 ->withInput();
         } else {
-            // Lưu thông tin vào database, phần này sẽ giới thiệu ở bài về database
-            $active = $request->has('active')? 1 : 0;
-            $update = DB::table('products')->where("id",$id)->update([
-                    'name'       => $request->input('name'),
-                    'price'      => $request->input('price'),
-                    'content'    => $request->input('content'),
-                    'image_path' => $request->input('image_path'),
-                    'active'     => $active,
-                    'updated_at' => \Carbon\Carbon::now()]
-            );
+//             Lưu thông tin vào database, phần này sẽ giới thiệu ở bài về database
+//            $active = $request->has('active')? 1 : 0;
+//            $update = DB::table('products')->where("id",$id)->update([
+//                    'name'       => $request->input('name'),
+//                    'price'      => $request->input('price'),
+//                    'content'    => $request->input('content'),
+//                    'image_path' => $request->input('image_path'),
+//                    'active'     => $active,
+//                    'updated_at' => \Carbon\Carbon::now()]
+//            );
+//            $curl = curl_init('http://127.0.0.1:8000/api/products/'.$id);
+            $curl = curl_init();
+            $data = array("name" => $request->input('name'));
+            curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => 'http://127.0.0.1:8000/api/products/'.$id,
+                CURLOPT_USERAGENT => 'XuanThuLab Exmaple POST',
+                CURLOPT_CUSTOMREQUEST => "PUT",
+                CURLOPT_SSL_VERIFYPEER => false, //Bỏ kiểm SSL
+                CURLOPT_POSTFIELDS => http_build_query($data)
+            ));
+            $message = curl_exec($curl);
+            curl_close($curl);
             return redirect('product')
-                ->with('message', 'Sản phẩm được chinh sữa thành công với ID: ' .$id)
+                ->with($message)
                 ->withinput();
         //
         }

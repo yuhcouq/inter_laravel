@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function GuzzleHttp\Promise\all;
 
 class ProductController extends Controller
 {
@@ -40,10 +41,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
         //
-        return $product;
+        $products = Product::find($id);
+        return $products;
     }
 
     /**
@@ -53,10 +55,13 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
-        return $product->update($request->all());
+        //re
+        $products = Product::find($id);
+        $products->update($request->all());
+        $message = 'đã sửa thành công sản phẩm có id là: '.$id;
+        return $message;
     }
 
     /**
@@ -65,9 +70,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
         //
+        $product = Product::find($id);
         $product->delete();
     }
 }

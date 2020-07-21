@@ -52,7 +52,7 @@ Route::get("/register",'DbController@registerview');
 Route::post("/registerpost",'DbController@register');
 //query builder
 Route::resource('product', 'ProductController', ['only' => [
-    'index', 'create', 'store', 'edit', 'update']]);
+    'index', 'create', 'store', 'edit', 'update','show']]);
 //eloquent-collection-migrate
 Route::get("/n-n",'EloquentController@add');
 Route::get("1-n",'EloquentController@add1n');
@@ -63,7 +63,7 @@ Route::get("/phantrang",'PController@phantrang');
 //repository
 Route::resource('post', 'PostController', ['only' => [
     'index', 'create', 'store', 'edit', 'update']]);
-
+//auth
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
