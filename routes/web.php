@@ -49,7 +49,10 @@ Route::get("/template",'TemController@templade');
 Route::get("/html",'TemController@html');
 //query
 Route::get("/register",'DbController@registerview');
-Route::post("/registerpost",'DbController@register');
+Route::post("/registerpost",'DbController@register')->name('registerpost');
+Route::get("/login",'DbController@loginview');
+Route::post("/loginpost",'DbController@login')->name('loginpost');
+Route::get("/success","DbController@success")->name('success');
 //query builder
 Route::resource('product', 'ProductController', ['only' => [
     'index', 'create', 'store', 'edit', 'update','show']]);
@@ -64,6 +67,6 @@ Route::get("/phantrang",'PController@phantrang');
 Route::resource('post', 'PostController', ['only' => [
     'index', 'create', 'store', 'edit', 'update']]);
 //auth
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
