@@ -44,8 +44,38 @@
             width: 100%;
             text-align: center;
             background-color:cornflowerblue;
+            margin-bottom: 40px;
+        }
+        .result{
+            text-align: center;
         }
     </style>
+    <script language="javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+    <script language="javascript">
+
+        function load_ajax()
+        {
+
+            $.ajax({
+                url : "{{ route('loginpost') }}", // gửi ajax đến file result.php
+                type : "post", // chọn phương thức gửi là get
+                dateType:"text", // dữ liệu trả về dạng text
+                data : { // Danh sách các thuộc tính sẽ gửi đi
+                    email : $('#email').val(),
+                    _token: '{{csrf_token()}}',
+                    password : $('#password').val()
+
+                },
+                success : function (result){
+                    // Sau khi gửi và kết quả trả về thành công thì gán nội dung trả về
+                    // đó vào thẻ div có id = result
+                    var result = "<div class='alert alert-success' role='alert'>"+result+"</div>"
+                    $('#result').html(result);
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
 <div class="container">
@@ -59,23 +89,24 @@
                 <h4>
                     <strong>
                         Don't have an account?
-                        <a href="https://dev.cbetflashcards.com/login">Click here to
+                        <a href="{{ route('getregister') }}">Click here to
                             register</a>
                     </strong>
                 </h4>
+
             </div>
             <div class="log-boby">
-                <form style="color: #757575;" method="POST" action="{{ route('loginpost') }}">
-                    @csrf
+                <div class="form">
+                    <div class="result alert-success" role="alert" id="result"></div>
                     <input type="hidden" name="_method" value="POST">
-                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">                            <!-- Email -->
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <div class="md-form">
-                        <input type="email" class="form-control" name="email" value="" required="" autocomplete="email" autofocus="" placeholder="Email Address">
+                        <input id= "email" type="email" class="form-control" name="email" value="" required="" autocomplete="email" autofocus="" placeholder="Email Address">
                         <i class="fa fa-envelope icon active"></i>
                     </div>
                     <!-- Password -->
                     <div class="md-form">
-                        <input type="password" class="form-control" name="password" required="" autocomplete="current-password" placeholder="Password">
+                        <input id="password" type="password" class="form-control" name="password" required="" autocomplete="current-password" placeholder="Password">
                         <i class="fa fa-key icon active"></i>
                     </div>
                     <div class="d-flex justify-content-end">
@@ -87,9 +118,9 @@
                         </div>
                     </div>
                     <!-- Sign in button -->
-                    <button class="btn" type="submit">Sign in
-                    </button>
-                </form>
+                    <input class="btn" type="submit" id="submit" onclick="load_ajax()" value="submit">
+                </div>
+
             </div>
         </div>
     </div>

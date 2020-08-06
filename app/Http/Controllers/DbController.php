@@ -22,46 +22,47 @@ class DbController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name'     => 'required|max:255',
-            'email'    => 'required|email',
+            'email'    => 'required|unique:users|email',
             'password' => 'required|min:6',
             'password_confirmation' => 'required_with:password|same:password|min:6'
-
         ], $messages);
         if ($validator->fails()) {
-            return redirect('register')
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['error'=>$validator->errors()->all()]);
+
         } else {
             // Lưu thông tin vào database, phần này sẽ giới thiệu ở bài về database
-            $name = $request->input('name');
-            $email = $request->input('email');
-            $password = Hash::make($request->input('password'));
+            $name = $request->name;
+            $email = $request->email;
+            $password = Hash::make($request->password);
             User::create([
                 'name' => $name,
                 'email' => $email,
                 'password' => $password,
             ]);
-            return view('register')
-                ->with('messages', 'Đăng ký thành công.');
+            return 'đăng kí thành công';
         }
     }
     public function loginview(){
+        if(session('user') != null){
+            session()->forget('user');
+
+        }
         return view("login");
     }
     public function login(Request $request){
-        $us = User::where('email','=',$request->input('email'))->first();
+        $us = User::where('email','=',$request->email)->first();
         if($us != null){
             if(Hash::check($request->input('password'),$us->password)){
                 session(['log' => true]);
                 session(['user'=> $us->id]);
-                return redirect('success');
+                return "đăng nhập thành công";
             }
             else{
-                return view('login')->with('message','mật khẩu hoặc email không đúng');
+                return 'mật khẩu hoặc email không đúng';
             }
         }
         else{
-            return view('login')->with('message','mật khẩu hoặc email không đúng');
+              return "đăng nhập không thành công";
         }
 
     }

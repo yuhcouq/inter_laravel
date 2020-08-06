@@ -48,9 +48,9 @@ Route::get("/template",'TemController@templade');
 //laravel html
 Route::get("/html",'TemController@html');
 //query
-Route::get("/register",'DbController@registerview');
+Route::get("/register",'DbController@registerview')->name('getregister');
 Route::post("/registerpost",'DbController@register')->name('registerpost');
-Route::get("/login",'DbController@loginview');
+Route::get("/login",'DbController@loginview')->name('getlogin');
 Route::post("/loginpost",'DbController@login')->name('loginpost');
 Route::get("/success","DbController@success")->name('success');
 //query builder
