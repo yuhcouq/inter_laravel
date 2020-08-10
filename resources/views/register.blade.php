@@ -55,7 +55,7 @@
         {
 
             $.ajax({
-                url : "{{ route('registerpost') }}", // gửi ajax đến file result.php
+                url : "{{route('registerpost')}}", // gửi ajax đến file result.php
                 type : "post", // chọn phương thức gửi là get
                 dateType:"json", // dữ liệu trả về dạng text
                 data : { // Danh sách các thuộc tính sẽ gửi đi
@@ -68,8 +68,7 @@
                 success : function (result){
                     // Sau khi gửi và kết quả trả về thành công thì gán nội dung trả về
                     // đó vào thẻ div có id = result
-
-                    $('#result').html(result.error['name']);
+                    $('#result').html(result.error);
                 }
             });
         }

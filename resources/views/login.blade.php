@@ -69,7 +69,7 @@
                 success : function (result){
                     // Sau khi gửi và kết quả trả về thành công thì gán nội dung trả về
                     // đó vào thẻ div có id = result
-                    var result = "<div class='alert alert-success' role='alert'>"+result+"</div>"
+                    var result = "<div class='alert alert-success' role='alert'>"+result+"</div>";
                     $('#result').html(result);
                 }
             });
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                     <!-- Sign in button -->
-                    <input class="btn" type="submit" id="submit" onclick="load_ajax()" value="submit">
+                    <input class="btn" type="submit" id="submit" onclick="load_ajax()" value="login">
                 </div>
 
             </div>

@@ -15,7 +15,6 @@ class DbController extends Controller
     }
     public function register(Request $request){
         //dd($request->all());
-
         $messages = [
             'required' => 'Trường :attribute bắt buộc nhập.',
             'email'    => 'Trường :attribute phải có định dạng email'
@@ -27,6 +26,7 @@ class DbController extends Controller
             'password_confirmation' => 'required_with:password|same:password|min:6'
         ], $messages);
         if ($validator->fails()) {
+
             return response()->json(['error'=>$validator->errors()->all()]);
 
         } else {
@@ -39,7 +39,8 @@ class DbController extends Controller
                 'email' => $email,
                 'password' => $password,
             ]);
-            return 'đăng kí thành công';
+            $messages = 'đăng kí thành công';
+            return response()->json(['error'=>'đăng kí thành công']);
         }
     }
     public function loginview(){

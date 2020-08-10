@@ -70,3 +70,8 @@ Route::resource('post', 'PostController', ['only' => [
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//bootstap
+Route::get('/bootstrap',function (){
+    return view('bootstrap');
+});
